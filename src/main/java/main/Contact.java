@@ -14,15 +14,21 @@ public class Contact {
         this.name = name;
     }
 
-//    public static Contact fromFileString(String fileString){
-//        //file format is name,number
-//        String [] pieces = fileString.split(","); //just like split in JS
-//        Contact contact = new Contact(pieces[0]);
-////        fighter.setHealth(Integer.parseInt(pieces[1]));
+    public static Contact fromFileString(String fileString) {
+        //file format is name,number
+        String[] contactFields = fileString.split(", "); //just like split in JS
+        //0,1 is first contact ----- 2,3 is second...
+        Contact contact = null;
+        for (int i = 0; i < contactFields.length; i++) {
+            contact = new Contact(contactFields[i], contactFields[i + 1]);
+        }
+
+//        fighter.setHealth(Integer.parseInt(pieces[1]));
 //        contact.setName(contact);
-////        fighter.setStrength(Integer.parseInt(pieces[2]));
+//        fighter.setStrength(Integer.parseInt(pieces[2]));
 //        return contact;
-//    }
+        return contact;
+    }
 
 
     @Override
