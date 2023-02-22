@@ -23,7 +23,7 @@ public class Input {
     //    get a string with a prompt
     public String getString(String prompt){
         System.out.println(prompt);
-        scanner.nextLine();
+//        scanner.nextLine();
         return getString();
     }
 
@@ -71,7 +71,7 @@ public class Input {
     //    get an integer with a prompt
     public int getInt(String prompt){
         System.out.println(prompt);
-        scanner.nextLine();
+//        scanner.nextLine();
         return getInt();
     }
 
