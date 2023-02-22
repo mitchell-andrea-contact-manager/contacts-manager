@@ -6,20 +6,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactManager {
     private static Input userInput = new Input();
 
-    private static Path contactsFile;
-
-    private static List<String> contactStrings;
+    private static ArrayList<Contact> contacts;
 
     public static void main(String[] args) {
+        contacts = contactInfo();
 
         while(true) {
-
-            showContacts();
 
             printMenu();
 
@@ -28,6 +26,8 @@ public class ContactManager {
             doChoice(userChoice);
 
             if(userChoice == 5){
+                //add all new info to contacts.txt
+
                 System.out.println("See ya!");
                 break;
             }
@@ -37,27 +37,39 @@ public class ContactManager {
 
     //display contacts
     private static void showContacts() {
-        contactsFile = Paths.get("src/main/java/data/contacts.txt");
-        System.out.println(Files.exists(contactsFile));
-        //create array list of contact objects
-        try {
-            contactStrings = Files.readAllLines(contactsFile);
-            System.out.println(contactStrings);
-        } catch (IOException e) {
-            System.out.println("file read exception: " + e.getMessage());
-            e.printStackTrace();
-        }
+//        Path contactsFile = Paths.get("src/main/java/data/contacts.txt");
+        System.out.println(contacts);
 
     }
 
-    private static void getAllFileContacts(){
-        try {
-            contactStrings = Files.readAllLines(contactsFile);
-            System.out.println(contactStrings);
-        } catch (IOException e) {
-            System.out.println("file read exception: " + e.getMessage());
-        }
+    private static ArrayList<Contact> contactInfo() {
+        ArrayList <Contact> contacts = new ArrayList<>();
+
+        Contact contact1 = new Contact("Andrea", "1234567890");
+        Contact contact2 = new Contact("Emi", "1234567890");
+        Contact contact3 = new Contact("Micah", "1234567890");
+        Contact contact4 = new Contact("Jacob", "1234567890");
+
+        contacts.add(contact1);
+        contacts.add(contact2);
+        contacts.add(contact3);
+        contacts.add(contact4);
+
+        return contacts;
+//        Path contactsFile = Paths.get("src/main/java/data/contacts.txt");
+//
+////        List<String> contactStrings = null;
+//        try {
+//            contacts = Files.readAllLines(contactsFile);
+//            System.out.println(contactStrings);
+//        } catch (IOException e) {
+//            System.out.println("file read exception: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//        return contactStrings;
+
     }
+
 
     //print the menu
     private static void printMenu() {
@@ -83,10 +95,6 @@ public class ContactManager {
             searchContact();
         }else if(choice == 4){
             deleteContact();
-        }else if(choice == 5){
-            //add all new info to contacts.txt
-
-            //exit
         }
     }
 
@@ -94,10 +102,13 @@ public class ContactManager {
     private static void addNewContact() {
         //get contact info from user
         String contactName = userInput.getString("Enter the contacts name: ");
-        Integer contactNumber = userInput.getInt("Enter the contacts 10 digit phone number: ");
+        String contactNumber = userInput.getString("Enter the contacts 10 digit phone number: ");
         //convert user input into string that can be plugged into file data
 
+        contacts.add(new Contact(contactName,contactNumber));
         //add new string to list to add it at the end of the run
+//        System.out.println(contacts.toString());
+//        contactList.add(contact.toString());
     }
 
     private static void searchContact() {
