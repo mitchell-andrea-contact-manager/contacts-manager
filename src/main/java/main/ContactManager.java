@@ -2,6 +2,11 @@ package main;
 
 import util.Input;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 public class ContactManager {
@@ -30,6 +35,14 @@ public class ContactManager {
 
     //display contacts
     private static void showContacts() {
+        Path contactsFile = Paths.get("contacts.txt");
+        //create array list of contact objects
+        try {
+            List<String> contactStrings = Files.readAllLines(contactsFile);
+            System.out.println(contactStrings);
+        } catch (IOException e) {
+            System.out.println("file read exception: " + e.getMessage());
+        }
     }
 
     //print the menu
@@ -49,9 +62,32 @@ public class ContactManager {
     //do users choice
     private static void doChoice(int choice) {
         if(choice == 1){
-            //show contacts
+            showContacts();
         }else if(choice == 2){
-            //add a new contact
+            addNewContact();
+        }else if(choice == 3){
+            searchContact();
+        }else if(choice == 4){
+            deleteContact();
+        }else if(choice == 5){
+            //add all new info to contacts.txt
+
+            //exit
         }
     }
+
+
+    private static void addNewContact() {
+
+    }
+
+    private static void searchContact() {
+    }
+
+    private static void deleteContact() {
+    }
+
+
+
+
 }
