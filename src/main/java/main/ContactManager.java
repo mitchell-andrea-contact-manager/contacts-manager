@@ -11,6 +11,10 @@ import java.util.List;
 public class ContactManager {
     private static Input userInput = new Input();
 
+    private static Path contactsFile;
+
+    private static List<String> contactStrings;
+
     public static void main(String[] args) {
 
         while(true) {
@@ -33,10 +37,22 @@ public class ContactManager {
 
     //display contacts
     private static void showContacts() {
-        Path contactsFile = Paths.get("contacts.txt");
+        contactsFile = Paths.get("src/main/java/data/contacts.txt");
+        System.out.println(Files.exists(contactsFile));
         //create array list of contact objects
         try {
-            List<String> contactStrings = Files.readAllLines(contactsFile);
+            contactStrings = Files.readAllLines(contactsFile);
+            System.out.println(contactStrings);
+        } catch (IOException e) {
+            System.out.println("file read exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void getAllFileContacts(){
+        try {
+            contactStrings = Files.readAllLines(contactsFile);
             System.out.println(contactStrings);
         } catch (IOException e) {
             System.out.println("file read exception: " + e.getMessage());
@@ -76,7 +92,12 @@ public class ContactManager {
 
 
     private static void addNewContact() {
+        //get contact info from user
+        String contactName = userInput.getString("Enter the contacts name: ");
+        Integer contactNumber = userInput.getInt("Enter the contacts 10 digit phone number: ");
+        //convert user input into string that can be plugged into file data
 
+        //add new string to list to add it at the end of the run
     }
 
     private static void searchContact() {
