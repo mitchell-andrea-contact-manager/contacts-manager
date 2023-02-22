@@ -111,10 +111,32 @@ public class ContactManager {
 //        contactList.add(contact.toString());
     }
 
-    private static void searchContact() {
-    }
+    private static Contact searchContact() {
+        System.out.println("Search: ");
+        String userSearch = userInput.getString();
 
+        for (Contact contact : contacts) {
+            if(contact.getName().toLowerCase().startsWith(userSearch.toLowerCase())) {
+                return contact;
+            }
+        }
+        return null;
+    }
     private static void deleteContact() {
+        System.out.print("What is the name of the contact you would like to delete? \n");
+        //convert user input into string that can be plugged into file data
+        Contact userContactRemoveSelect = searchContact();
+
+        for (int i = 0; i < contacts.size(); i++) {
+            if(contacts.get(i).equals(userContactRemoveSelect)){
+                boolean deleteConfirm = userInput.yesNo("Is \"" + contacts.get(i).getName() + "\" the contact you would like to delete?");
+                if(deleteConfirm){
+                    contacts.remove(contacts.get(i));
+                } else {
+                    deleteContact();
+                }
+            }
+        }
     }
 
 
