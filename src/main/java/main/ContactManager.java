@@ -137,9 +137,6 @@ public class ContactManager {
 
         System.out.printf(ANSI_PURPLE+ "%s has been added to your contacts.",contactName);
         System.out.println();
-        //add new string to list to add it at the end of the run
-//        System.out.println(contacts.toString());
-//        contactList.add(contact.toString());
     }
 
     private static Contact searchContact() {
@@ -153,12 +150,12 @@ public class ContactManager {
                 boolean searchAgain = userInput.yesNo(ANSI_CYAN+"Would you like to search again?" +ANSI_RESET);
                 System.out.println();
                 if(searchAgain){
-                    searchContact();
+                    Contact temp = searchContact();
+                    if(temp != null) {
+                        contact = temp;
+                    }
                 }
                 return contact;
-            } else {
-                System.out.println(ANSI_RED + "That contact does not exist." + ANSI_RESET);
-                break;
             }
         }
         return null;
@@ -168,20 +165,8 @@ public class ContactManager {
         System.out.print(ANSI_CYAN+"What is the name of the contact you would like to delete? \n" + ANSI_RESET);
         //convert user input into string that can be plugged into file data
         Contact userContactRemoveSelect = searchContact();
-
-        for (int i = 0; i < contacts.size(); i++) {
-            if(contacts.get(i).equals(userContactRemoveSelect)){
-                boolean deleteConfirm = userInput.yesNo(ANSI_RED + "Is \"" + contacts.get(i).getName() + "\" the contact you would like to delete?" +ANSI_RESET);
-                System.out.println();
-                if(deleteConfirm){
-                    System.out.printf( ANSI_PURPLE+ "%s has been removed from your contacts.", contacts.get(i).getName());
-                    contacts.remove(contacts.get(i));
-                    System.out.println();
-                } else {
-                    deleteContact();
-                }
-            }
-        }
+        System.out.println(userContactRemoveSelect);
+        contacts.remove(userContactRemoveSelect);
     }
 
 }
