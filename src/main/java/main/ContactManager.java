@@ -103,6 +103,7 @@ public class ContactManager {
         }else if(choice == 4){
             deleteContact();
         }
+
     }
 
 
