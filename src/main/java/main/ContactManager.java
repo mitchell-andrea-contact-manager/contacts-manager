@@ -7,14 +7,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static java.nio.file.Files.readAllLines;
-import static java.nio.file.Files.write;
-
 public class ContactManager {
-    private static Input userInput = new Input();
+    private static final Input userInput = new Input();
 
     private static ArrayList<Contact> contacts;
 
@@ -118,8 +114,6 @@ public class ContactManager {
 
         contacts.add(new Contact(contactName,contactNumber));
         //add new string to list to add it at the end of the run
-//        System.out.println(contacts.toString());
-//        contactList.add(contact.toString());
     }
 
     private static Contact searchContact() {
