@@ -2,7 +2,14 @@ package main;
 
 import util.Input;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+
+import static java.nio.file.Files.readAllLines;
 
 public class ContactManager {
     private static Input userInput = new Input();
@@ -11,7 +18,7 @@ public class ContactManager {
 
     public static void main(String[] args) {
 
-        contacts = contactInfo();
+        contactInfo();
 
         while(true) {
 
@@ -36,20 +43,32 @@ public class ContactManager {
         System.out.println(contacts);
     }
 
-    private static ArrayList<Contact> contactInfo() {
-        ArrayList <Contact> contacts = new ArrayList<>();
+    private static void contactInfo() {
+//        ArrayList <Contact> contacts = new ArrayList<>();
+//
+//        Contact contact1 = new Contact("Andrea", "1234567890");
+//        Contact contact2 = new Contact("Emi", "1234567890");
+//        Contact contact3 = new Contact("Micah", "1234567890");
+//        Contact contact4 = new Contact("Jacob", "1234567890");
+//
+//        contacts.add(contact1);
+//        contacts.add(contact2);
+//        contacts.add(contact3);
+//        contacts.add(contact4);
+//
+//        return contacts;
 
-        Contact contact1 = new Contact("Andrea", "1234567890");
-        Contact contact2 = new Contact("Emi", "1234567890");
-        Contact contact3 = new Contact("Micah", "1234567890");
-        Contact contact4 = new Contact("Jacob", "1234567890");
+        Path groceriesPath = Paths.get("src/main/java/data/contacts.txt");
+        try {
+            List<String> contactList = Files.readAllLines(groceriesPath);
+            System.out.println(contactList);
 
-        contacts.add(contact1);
-        contacts.add(contact2);
-        contacts.add(contact3);
-        contacts.add(contact4);
-
-        return contacts;
+            for (String s : contactList) {
+                contacts.add(Contact.createFromFileString(s));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
