@@ -156,6 +156,9 @@ public class ContactManager {
                     searchContact();
                 }
                 return contact;
+            } else {
+                System.out.println(ANSI_RED + "That contact does not exist." + ANSI_RESET);
+                break;
             }
         }
         return null;
