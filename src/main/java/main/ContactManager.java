@@ -2,6 +2,10 @@ package main;
 
 import util.Input;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class ContactManager {
@@ -33,7 +37,11 @@ public class ContactManager {
 
     //display contacts
     private static void showContacts() {
-        System.out.println(contacts);
+        System.out.printf("""
+                Name | Phone number
+                %s
+                """,contacts);
+//        System.out.println(contacts);
     }
 
     private static ArrayList<Contact> contactInfo() {
@@ -50,6 +58,7 @@ public class ContactManager {
         contacts.add(contact4);
 
         return contacts;
+
     }
 
 
