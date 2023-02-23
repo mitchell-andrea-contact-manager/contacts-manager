@@ -9,12 +9,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.nio.file.Files.readAllLines;
+
 public class ContactManager {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_CYAN = "\u001B[36m";
-    private static final Input userInput = new Input();
+
+    private static Input userInput = new Input();
 
     private static ArrayList<Contact> contacts;
 
@@ -26,6 +29,7 @@ public class ContactManager {
 
             printMenu();
 
+//            System.out.println(ANSI_PURPLE);
             int userChoice = userInput.getInt();
 
             doChoice(userChoice);
@@ -55,12 +59,13 @@ public class ContactManager {
         try {
             List<String> contactList = Files.readAllLines(contactsPath);
             ArrayList<Contact> contactArrayList = new ArrayList<>();
-            System.out.println(contactList);
+//            System.out.println(contactList);
 
             for (String s : contactList) {
                 contactArrayList.add(Contact.createFromFileString(s));
             }
             contacts = contactArrayList;
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -100,8 +105,10 @@ public class ContactManager {
     private static void viewContacts() {
         System.out.println( """
                 Name | Phone number
-                """ );
-        System.out.println(contacts);
+                ------------------- """ );
+        for (Contact contact : contacts) {
+            System.out.println(contact);
+        }
     }
 
     //do users choice
@@ -131,6 +138,8 @@ public class ContactManager {
         System.out.printf(ANSI_PURPLE+ "%s has been added to your contacts.",contactName);
         System.out.println();
         //add new string to list to add it at the end of the run
+//        System.out.println(contacts.toString());
+//        contactList.add(contact.toString());
     }
 
     private static Contact searchContact() {
@@ -151,8 +160,9 @@ public class ContactManager {
         }
         return null;
     }
+
     private static void deleteContact() {
-        System.out.print("What is the name of the contact you would like to delete? \n");
+        System.out.print(ANSI_CYAN+"What is the name of the contact you would like to delete? \n" + ANSI_RESET);
         //convert user input into string that can be plugged into file data
         Contact userContactRemoveSelect = searchContact();
 
@@ -163,6 +173,7 @@ public class ContactManager {
                 if(deleteConfirm){
                     System.out.printf( ANSI_PURPLE+ "%s has been removed from your contacts.", contacts.get(i).getName());
                     contacts.remove(contacts.get(i));
+                    System.out.println();
                 } else {
                     deleteContact();
                 }
