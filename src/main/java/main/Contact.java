@@ -38,10 +38,8 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "name='" + name + '\'' +
-                ", number='" + number + '\'' +
-                '}';
+        return "Contact: " + name +
+                " | " + number ;
     }
 
     // accessors

@@ -40,7 +40,11 @@ public class ContactManager {
 
     //display contacts
     private static void showContacts() {
-        System.out.println(contacts);
+        System.out.printf("""
+                Name | Phone number
+                %s
+                """,contacts);
+//        System.out.println(contacts);
     }
 
     private static void contactInfo() {
@@ -69,7 +73,7 @@ public class ContactManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
+
 
 
     //print the menu
@@ -139,7 +143,5 @@ public class ContactManager {
             }
         }
     }
-
-
 
 }
