@@ -2,12 +2,7 @@ package main;
 
 import util.Input;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ContactManager {
     private static Input userInput = new Input();
@@ -15,6 +10,7 @@ public class ContactManager {
     private static ArrayList<Contact> contacts;
 
     public static void main(String[] args) {
+
         contacts = contactInfo();
 
         while(true) {
@@ -37,9 +33,7 @@ public class ContactManager {
 
     //display contacts
     private static void showContacts() {
-//        Path contactsFile = Paths.get("src/main/java/data/contacts.txt");
         System.out.println(contacts);
-
     }
 
     private static ArrayList<Contact> contactInfo() {
@@ -56,18 +50,6 @@ public class ContactManager {
         contacts.add(contact4);
 
         return contacts;
-//        Path contactsFile = Paths.get("src/main/java/data/contacts.txt");
-//
-////        List<String> contactStrings = null;
-//        try {
-//            contacts = Files.readAllLines(contactsFile);
-//            System.out.println(contactStrings);
-//        } catch (IOException e) {
-//            System.out.println("file read exception: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//        return contactStrings;
-
     }
 
 
