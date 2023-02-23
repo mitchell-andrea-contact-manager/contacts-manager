@@ -7,9 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.nio.file.Files.readAllLines;
+import static java.nio.file.Files.write;
 
 public class ContactManager {
     private static Input userInput = new Input();
@@ -18,7 +20,7 @@ public class ContactManager {
 
     public static void main(String[] args) {
 
-        contactInfo();
+        getContactInfo();
 
         while(true) {
 
@@ -32,6 +34,7 @@ public class ContactManager {
                 //add all new info to contacts.txt
 
                 System.out.println("See ya!");
+                writeContactInfo();
                 break;
             }
         }
@@ -40,27 +43,17 @@ public class ContactManager {
 
     //display contacts
     private static void showContacts() {
-        System.out.println(contacts);
+//        System.out.println(contacts);
+        System.out.printf("""
+        Name | Phone number
+        %s
+        """,contacts);
     }
 
-    private static void contactInfo() {
-//        ArrayList <Contact> contacts = new ArrayList<>();
-//
-//        Contact contact1 = new Contact("Andrea", "1234567890");
-//        Contact contact2 = new Contact("Emi", "1234567890");
-//        Contact contact3 = new Contact("Micah", "1234567890");
-//        Contact contact4 = new Contact("Jacob", "1234567890");
-//
-//        contacts.add(contact1);
-//        contacts.add(contact2);
-//        contacts.add(contact3);
-//        contacts.add(contact4);
-//
-//        return contacts;
-
-        Path groceriesPath = Paths.get("src/main/java/data/contacts.txt");
+    private static void getContactInfo() {
+        Path contactsPath = Paths.get("src/main/java/data/contacts.txt");
         try {
-            List<String> contactList = Files.readAllLines(groceriesPath);
+            List<String> contactList = Files.readAllLines(contactsPath);
             ArrayList<Contact> contactArrayList = new ArrayList<>();
             System.out.println(contactList);
 
@@ -74,6 +67,20 @@ public class ContactManager {
         }
     }
 
+    private static void writeContactInfo() {
+        Path contactsPath = Paths.get("src/main/java/data/contacts.txt");
+
+        try {
+            List<String> contactList = new ArrayList<>();
+            for (Contact contact : contacts) {
+                contactList.add(contact.toString());
+            }
+            Files.write(contactsPath, contactList);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     //print the menu
     private static void printMenu() {
@@ -121,6 +128,7 @@ public class ContactManager {
 
         for (Contact contact : contacts) {
             if(contact.getName().toLowerCase().startsWith(userSearch.toLowerCase())) {
+                System.out.println(contact);
                 return contact;
             }
         }
@@ -132,9 +140,9 @@ public class ContactManager {
         Contact userContactRemoveSelect = searchContact();
 
         for (int i = 0; i < contacts.size(); i++) {
-            if(contacts.get(i).equals(userContactRemoveSelect)){
+            if (contacts.get(i).equals(userContactRemoveSelect)) {
                 boolean deleteConfirm = userInput.yesNo("Is \"" + contacts.get(i).getName() + "\" the contact you would like to delete?");
-                if(deleteConfirm){
+                if (deleteConfirm) {
                     contacts.remove(contacts.get(i));
                 } else {
                     deleteContact();
@@ -142,7 +150,6 @@ public class ContactManager {
             }
         }
     }
-
 
 
 }
