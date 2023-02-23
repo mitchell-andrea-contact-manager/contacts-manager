@@ -14,15 +14,13 @@ public class Contact {
         this.name = name;
     }
 
-//    public static Contact fromFileString(String fileString){
-//        //file format is name,number
-//        String [] pieces = fileString.split(","); //just like split in JS
-//        Contact contact = new Contact(pieces[0]);
-////        fighter.setHealth(Integer.parseInt(pieces[1]));
-//        contact.setName(contact);
-////        fighter.setStrength(Integer.parseInt(pieces[2]));
-//        return contact;
-//    }
+    public static Contact createFromFileString(String contactString) {
+        String [] pieces = contactString.split("\\|");
+        Contact contact = new Contact(pieces[0]);
+        contact.setNumber(pieces[1]);
+
+        return contact;
+    }
 
 
     @Override
@@ -40,8 +38,7 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact: " + name +
-                " | " + number ;
+        return  name + " | " + number ;
     }
 
     // accessors
