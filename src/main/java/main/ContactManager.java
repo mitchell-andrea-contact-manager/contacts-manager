@@ -61,13 +61,16 @@ public class ContactManager {
         Path groceriesPath = Paths.get("src/main/java/data/contacts.txt");
         try {
             List<String> contactList = Files.readAllLines(groceriesPath);
+            ArrayList<Contact> contactArrayList = new ArrayList<>();
             System.out.println(contactList);
 
             for (String s : contactList) {
-                contacts.add(Contact.createFromFileString(s));
+                contactArrayList.add(Contact.createFromFileString(s));
             }
+            contacts = contactArrayList;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
