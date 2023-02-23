@@ -16,6 +16,7 @@ public class ContactManager {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_CYAN = "\u001B[36m";
+
     private static Input userInput = new Input();
 
     private static ArrayList<Contact> contacts;
@@ -62,12 +63,13 @@ public class ContactManager {
         try {
             List<String> contactList = Files.readAllLines(groceriesPath);
             ArrayList<Contact> contactArrayList = new ArrayList<>();
-            System.out.println(contactList);
+//            System.out.println(contactList);
 
             for (String s : contactList) {
                 contactArrayList.add(Contact.createFromFileString(s));
             }
             contacts = contactArrayList;
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -92,8 +94,10 @@ public class ContactManager {
     private static void viewContacts() {
         System.out.println( """
                 Name | Phone number
-                """ );
-        System.out.println(contacts);
+                ------------------- """ );
+        for (Contact contact : contacts) {
+            System.out.println(contact);
+        }
     }
 
     //do users choice
