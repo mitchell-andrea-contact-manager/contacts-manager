@@ -15,7 +15,7 @@ public class Contact {
     }
 
     public static Contact createFromFileString(String contactString) {
-        String [] pieces = contactString.split("\\| ");
+        String [] pieces = contactString.split("\\|");
         Contact contact = new Contact(pieces[0]);
         contact.setNumber(pieces[1]);
 
