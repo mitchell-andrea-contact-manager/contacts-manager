@@ -14,14 +14,10 @@ public class Contact {
         this.name = name;
     }
 
-    public static Contact createFromFileString(String fileString) {
-        //file format is name,number
-        String[] contactFields = fileString.split(": "); //just like split in JS
-        //0,1 is first contact ----- 2,3 is second...
-        Contact contact = null;
-        for (int i = 0; i < contactFields.length; i+=2) {
-            contact = new Contact(contactFields[i], contactFields[i + 1]);
-        }
+    public static Contact createFromFileString(String contactString) {
+        String [] pieces = contactString.split(": ");
+        Contact contact = new Contact(pieces[0]);
+        contact.setNumber(pieces[1]);
 
         return contact;
     }
